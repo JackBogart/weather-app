@@ -2,18 +2,17 @@ export function processVisualCrossingCurrentWeather(data) {
   return {
     currentDatetime: data.currentConditions.datetime,
     temperature: data.currentConditions.temp,
-    precipitationProbability: data.currentConditions.precipprob,
     conditions: data.currentConditions.conditions,
+    icon: data.currentConditions.icon,
   };
 }
 
 export function processVisualCrossingDailyWeather(data) {
   return data.days.map((dailyData) => ({
     datetime: dailyData.datetime,
-    minTemperature: dailyData.mintemp,
-    maxTemperature: dailyData.maxtemp,
+    minTemperature: dailyData.tempmin,
+    maxTemperature: dailyData.tempmax,
     precipitationProbability: dailyData.precipprob,
-    conditions: dailyData.conditions,
-    description: dailyData.description,
+    icon: dailyData.icon,
   }));
 }

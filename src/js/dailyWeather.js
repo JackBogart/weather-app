@@ -1,11 +1,12 @@
 export default function createDailyWeather(dailyWeatherDataList) {
   return dailyWeatherDataList.map((dailyData) => ({
     getDatetime: () => dailyData.datetime,
-    getMinTemperature: () => dailyData.minTemperature,
-    getMaxTemperature: () => dailyData.maxTemperature,
-    getPrecipitationProbability: () => dailyData.precipitationProbability,
-    getConditions: () => dailyData.conditions,
-    getDescription: () => dailyData.description,
+    getMinTemperature: () => Math.round(dailyData.minTemperature),
+    getMaxTemperature: () => Math.round(dailyData.maxTemperature),
+    getPrecipitationProbability: () =>
+      Math.round(dailyData.precipitationProbability),
+    getIcon: () => dailyData.icon,
+
     convertFahrenheitToCelsius: () => {
       dailyData.minTemperature = (dailyData.minTemperature - 32) * (5 / 9);
       dailyData.maxTemperature = (dailyData.maxTemperature - 32) * (5 / 9);

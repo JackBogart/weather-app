@@ -1,14 +1,14 @@
 export default function createCurrentWeather({
   currentDatetime,
   temperature,
-  precipitationProbability,
   conditions,
+  icon,
 }) {
   return {
     getCurrentDatetime: () => currentDatetime,
-    getTemperature: () => temperature,
-    getPrecipitationProbability: () => precipitationProbability,
+    getTemperature: () => Math.round(temperature),
     getConditions: () => conditions,
+    getIcon: () => icon,
 
     convertFahrenheitToCelsius: () => {
       temperature = (temperature - 32) * (5 / 9);

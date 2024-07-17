@@ -6,8 +6,10 @@ import {
 } from './processDataWrapper';
 
 export default function createForecast(data) {
+  const location = data.resolvedAddress;
+
   const currentWeather = createCurrentWeather(processCurrentWeather(data));
   const dailyWeather = createDailyWeather(processDailyWeather(data));
 
-  return { currentWeather, dailyWeather };
+  return { currentWeather, dailyWeather, getLocation: () => location };
 }
