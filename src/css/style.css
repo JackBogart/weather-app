@@ -12,11 +12,15 @@
     'Helvetica Neue',
     sans-serif;
   font-size: 1.5rem;
+  --white-font-color: hsl(0, 0%, 100%);
+  --primary-card-color: hsl(205, 100%, 50%);
 }
 body {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  color: var(--white-font-color);
 }
 
 form {
@@ -46,24 +50,81 @@ input + button {
 
 .content {
   margin: 50px 20vw;
+  display: grid;
+  grid-template: auto auto / 1fr 1fr;
+  grid-template-areas:
+    'current-weather-conditions current-weather-info'
+    'daily-weather daily-weather';
+  gap: 20px;
+}
+
+.github-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: hsl(0, 0%, 10%);
+}
+
+.github-banner svg:hover:not(:active) {
+  fill: hsl(0, 0%, 50%);
+}
+
+.card {
+  border-radius: 20px;
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.resolved-address {
+  color: inherit;
+  font-weight: bold;
+}
+
+/* .current-weather-container {
+  display: flex;
+  justify-content: space-around;
+} */
+
+.current-weather {
+  background-color: var(--primary-card-color);
+  padding: 10px;
+  line-height: 1.5;
+  grid-area: current-weather-conditions;
   display: flex;
   flex-direction: column;
 }
 
-.resolved-address {
+.daily-weather-container {
+  background-color: var(--primary-card-color);
+  grid-area: daily-weather;
+}
+
+.current-weather-info {
   align-self: center;
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  gap: 30px;
+}
+
+.current-weather-time {
+  align-self: flex-end;
 }
 
 .daily-weather {
   display: flex;
   align-items: center;
+  padding: 5px 10px;
 }
 
-.daily-weather > * {
-  flex: 1;
+.day-of-the-week {
+  flex: 1 4 100px;
 }
 
 .daily-weather-info {
+  flex: 1 1 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -75,7 +136,7 @@ input + button {
 }
 
 .daily-weather:has(+ .daily-weather) {
-  border-bottom: 1px black solid;
+  border-bottom: 1px hsl(0, 0%, 95%) solid;
 }
 
 /* Weather Icons */

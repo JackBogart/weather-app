@@ -1,3 +1,4 @@
+import 'normalize.css';
 import '../css/style.css';
 import createForecast from './forecast';
 import { format, parse } from 'date-fns';
@@ -17,53 +18,59 @@ locationForm.addEventListener('submit', (e) => {
       console.log(data);
       forecast = createForecast(data);
       console.log(forecast.dailyWeather);
-      displayLocation(forecast.getLocation());
-      displayCurrentWeather(forecast.currentWeather);
+      displayCurrentWeather(forecast.currentWeather, forecast.getLocation());
       displayDailyWeather(forecast.dailyWeather);
     })
     .finally(() => console.log('Done'));
 });
 
-function displayLocation(location) {
+function displayCurrentWeather(currentWeather, location) {
   const content = document.querySelector('.content');
+  const currentWeatherContainer = document.createElement('div');
+  const currentWeatherConditions = document.createElement('div');
   const locationElement = document.createElement('div');
   locationElement.textContent = location;
   locationElement.className = 'resolved-address';
-  content.replaceChildren(locationElement);
-}
-
-function displayCurrentWeather(currentWeather) {
-  const content = document.querySelector('.content');
-  const currentWeatherContainer = document.createElement('div');
   const conditions = document.createElement('div');
   conditions.textContent = currentWeather.getConditions();
   const currentDatetime = document.createElement('div');
-  currentDatetime.textContent = convertTo12Hour(
+  currentDatetime.textContent = `As of ${convertTo12Hour(
     currentWeather.getCurrentDatetime(),
-  );
+  )}`;
+  currentDatetime.classList.add('current-weather-time');
   const temperature = document.createElement('div');
-  temperature.textContent = currentWeather.getTemperature();
-  const imgTest = document.createElement('div');
-  imgTest.classList.add(currentWeather.getIcon(), 'current-weather-icon');
-  currentWeatherContainer.append(
-    imgTest,
+  temperature.textContent = `${currentWeather.getTemperature()}°F`;
+  const icon = document.createElement('div');
+  icon.classList.add(currentWeather.getIcon(), 'current-weather-icon');
+  const currentWeatherInfo = document.createElement('div');
+  currentWeatherInfo.append(temperature, icon);
+  currentWeatherInfo.className = 'current-weather-info';
+  currentWeatherConditions.append(
+    locationElement,
     conditions,
+    currentWeatherInfo,
     currentDatetime,
-    temperature,
   );
-  content.append(currentWeatherContainer);
+  currentWeatherConditions.classList.add('current-weather', 'card');
+  currentWeatherContainer.classList.add('current-weather-container');
+  currentWeatherContainer.append(currentWeatherConditions);
+  content.replaceChildren(currentWeatherContainer);
 }
 
 function displayDailyWeather(dailyWeather) {
+  const content = document.querySelector('.content');
+  const dailyWeatherContainer = document.createElement('div');
+
   displayDay(dailyWeather[0], 'Today');
 
-  for (const day of dailyWeather.slice(1, -1)) {
-    displayDay(day);
+  for (const day of dailyWeather.slice(1)) {
+    dailyWeatherContainer.appendChild(displayDay(day));
   }
+  dailyWeatherContainer.classList.add('daily-weather-container', 'card');
+  content.appendChild(dailyWeatherContainer);
 }
 
 function displayDay(day, dayOfTheWeek = null) {
-  const content = document.querySelector('.content');
   const dailyWeatherContainer = document.createElement('div');
   const weatherInfo = document.createElement('div');
   weatherInfo.className = 'daily-weather-info';
@@ -93,7 +100,7 @@ function displayDay(day, dayOfTheWeek = null) {
   );
   dailyWeatherContainer.append(dayName, weatherInfo);
   dailyWeatherContainer.classList.add('daily-weather');
-  content.append(dailyWeatherContainer);
+  return dailyWeatherContainer;
 }
 
 function convertTo12Hour(dateTime24) {
