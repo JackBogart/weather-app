@@ -108,7 +108,7 @@ function convertTo12Hour(dateTime24) {
   const date = parse(dateTime24, 'HH:mm:ss', new Date());
 
   // Format the Date object into a 12-hour time string with AM/PM
-  return format(date, 'hh:mm a');
+  return format(date, 'h:mm a');
 }
 
 function convertToDayOfTheWeek(datetime) {
