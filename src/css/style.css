@@ -49,11 +49,11 @@ input + button {
 }
 
 .content {
-  margin: 50px 20vw;
+  margin: 50px 25vw;
   display: grid;
   grid-template: auto auto / 1fr 1fr;
   grid-template-areas:
-    'current-weather-conditions current-weather-info'
+    'current-weather-conditions current-weather-conditions'
     'daily-weather daily-weather';
   gap: 20px;
 }
@@ -82,16 +82,14 @@ input + button {
   font-weight: bold;
 }
 
-/* .current-weather-container {
-  display: flex;
-  justify-content: space-around;
-} */
+.current-weather-container {
+  grid-area: current-weather-conditions;
+}
 
 .current-weather {
   background-color: var(--primary-card-color);
   padding: 10px;
   line-height: 1.5;
-  grid-area: current-weather-conditions;
   display: flex;
   flex-direction: column;
 }
@@ -109,8 +107,9 @@ input + button {
   gap: 30px;
 }
 
-.current-weather-time {
-  align-self: flex-end;
+.bottom-current-weather {
+  display: flex;
+  justify-content: space-between;
 }
 
 .daily-weather {

@@ -2,6 +2,7 @@ export function processVisualCrossingCurrentWeather(data) {
   return {
     currentDatetime: data.currentConditions.datetime,
     temperature: data.currentConditions.temp,
+    feelsLike: data.currentConditions.feelslike,
     conditions: data.currentConditions.conditions,
     icon: data.currentConditions.icon,
   };

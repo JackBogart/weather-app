@@ -1,12 +1,14 @@
 export default function createCurrentWeather({
   currentDatetime,
   temperature,
+  feelsLike,
   conditions,
   icon,
 }) {
   return {
     getCurrentDatetime: () => currentDatetime,
     getTemperature: () => Math.round(temperature),
+    getFeelsLike: () => Math.round(feelsLike),
     getConditions: () => conditions,
     getIcon: () => icon,
 
