@@ -8,43 +8,43 @@ export default function createController() {
   const view = createView();
   let forecast = null;
 
+  function loadWeather(data) {
+    forecast = createForecast(data);
+    view.displayCurrentWeather(forecast.currentWeather, forecast.getLocation());
+    view.displayDailyWeather(forecast.dailyWeather);
+    locationForm.reset();
+  }
+
+  async function fetchWeather(searchQuery, unitGroup) {
+    try {
+      const response = await fetch(
+        `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${searchQuery}/` +
+          `next7days?unitGroup=${unitGroup}&elements=datetime%2CresolvedAddress%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2C` +
+          'precipprob%2Cconditions%2Cicon&include=fcst%2Cdays%2Ccurrent&key=8KTRXTELZJ2FLALH7ANX7K72L&contentType=json',
+      );
+      if (!response.ok) {
+        throw new Error('Invalid Location');
+      }
+
+      const data = await response.json();
+      loadWeather(data);
+    } catch (error) {
+      forecast = null;
+
+      if (error.message === 'Invalid Location') {
+        view.displayNoLocationFound(searchQuery);
+      } else {
+        console.log(error);
+      }
+    }
+  }
+
   function setupSearchHandler() {
     locationForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      let unitGroup = null;
-      if (temperatureSelector.value === 'fahrenheit') {
-        unitGroup = 'us';
-      } else {
-        unitGroup = 'uk';
-      }
-      fetch(
-        `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationField.value}/` +
-          `next7days?unitGroup=${unitGroup}&elements=datetime%2CresolvedAddress%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2C` +
-          'precipprob%2Cconditions%2Cicon&include=fcst%2Cdays%2Ccurrent&key=8KTRXTELZJ2FLALH7ANX7K72L&contentType=json',
-      )
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error('Invalid Location');
-          }
-        })
-        .then((data) => {
-          forecast = createForecast(data);
-          view.displayCurrentWeather(
-            forecast.currentWeather,
-            forecast.getLocation(),
-          );
-          view.displayDailyWeather(forecast.dailyWeather);
-          locationForm.reset();
-        })
-        .catch((error) => {
-          if (error.message === 'Invalid Location') {
-            view.displayNoLocationFound(locationField.value);
-          } else {
-            console.log(error);
-          }
-        });
+
+      let unitGroup = temperatureSelector.value === 'fahrenheit' ? 'us' : 'uk';
+      fetchWeather(locationField.value, unitGroup);
     });
   }
 
