@@ -10,7 +10,6 @@ export default [
     },
     rules: {
       // TODO: Write custom ESlint config
-      'no-useless-assignment': 'error',
     },
   },
   {

@@ -98,18 +98,14 @@ export default function createView() {
   }
 
   function convertTo12Hour(dateTime24) {
-    // Parse the 24-hour time string into a Date object
     const date = parse(dateTime24, 'HH:mm:ss', new Date());
 
-    // Format the Date object into a 12-hour time string with AM/PM
     return format(date, 'h:mm a');
   }
 
   function convertToDayOfTheWeek(datetime) {
-    // Parse the 24-hour time string into a Date object
     const date = parse(datetime, 'yyyy-MM-dd', new Date());
 
-    // Format the Date object into a 12-hour time string with AM/PM
     return format(date, 'iiii');
   }
   return { displayDailyWeather, displayCurrentWeather };

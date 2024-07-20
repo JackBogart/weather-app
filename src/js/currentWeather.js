@@ -12,11 +12,13 @@ export default function createCurrentWeather({
     getConditions: () => conditions,
     getIcon: () => icon,
 
-    convertFahrenheitToCelsius: () => {
-      temperature = (temperature - 32) * (5 / 9);
-    },
     convertCelsiusToFahrenheit: () => {
+      temperature = (temperature - 32) * (5 / 9);
+      feelsLike = (feelsLike - 32) * (5 / 9);
+    },
+    convertFahrenheitToCelsius: () => {
       temperature = (9 / 5) * temperature + 32;
+      feelsLike = (9 / 5) * feelsLike + 32;
     },
   };
 }
