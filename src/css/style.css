@@ -14,6 +14,7 @@
   font-size: 1.5rem;
   --white-font-color: hsl(0, 0%, 100%);
   --primary-card-color: hsl(205, 100%, 50%);
+  --primary-dark-blue: hsl(206, 100%, 30%);
 }
 body {
   min-height: 100vh;
@@ -23,18 +24,32 @@ body {
   color: var(--white-font-color);
 }
 
+.header {
+  display: grid;
+  grid-template: 1fr / repeat(3, 1fr);
+  grid-template-areas: '. search-bar temperature-select';
+  align-items: center;
+  background-color: var(--primary-dark-blue);
+  padding: 10px 40px;
+}
+
 form {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  grid-area: search-bar;
 }
 
-input {
+form > *,
+select {
+  border: 1px gray solid;
+}
+
+input[type='search'] {
   appearance: none;
   outline: none;
-  border: 1px gray solid;
-  border-radius: 20px;
+  border-right: none;
+  border-radius: 20px 0px 0px 20px;
   padding: 5px 15px;
   font-family: inherit;
   font-size: inherit;
@@ -42,19 +57,47 @@ input {
 }
 
 input + button {
-  border: none;
-  width: 30px;
-  height: 30px;
-  background: url('../img/search.svg') no-repeat center center;
+  border-left: none;
+  width: 40px;
+  align-self: stretch;
+  border-radius: 0px 20px 20px 0px;
+  background: white url('../img/search.svg') no-repeat center center;
+}
+
+select {
+  width: min-content;
+  padding-right: 40px;
+  appearance: none;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.select-wrapper {
+  grid-area: temperature-select;
+  justify-self: end;
+  position: relative;
+}
+
+.section-title {
+  color: black;
+  margin: 20px 0px 0px 0px;
+}
+
+.select-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: 0;
+  background: url('../img/drop-down.svg') no-repeat center center;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
 }
 
 .content {
-  margin: 50px 25vw;
-  display: grid;
-  grid-template: auto auto / 1fr 1fr;
-  grid-template-areas:
-    'current-weather-conditions current-weather-conditions'
-    'daily-weather daily-weather';
+  margin: 0px 20vw 20px 20vw;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 
@@ -64,6 +107,8 @@ input + button {
   align-items: center;
   padding: 10px;
   background-color: hsl(0, 0%, 10%);
+  font-size: 0.7rem;
+  gap: 10px;
 }
 
 .github-banner svg:hover:not(:active) {
@@ -118,6 +163,28 @@ input + button {
   padding: 5px 10px;
 }
 
+.temp-range {
+  flex: 0 0 100px;
+  display: flex;
+  gap: 5px;
+}
+
+.max-temp {
+  font-weight: bold;
+}
+
+.precipitation-wrapper {
+  flex: 0 0 80px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.precip-prob-icon {
+  background: url('../img/rain-drop.svg') no-repeat center center;
+  width: 24px;
+  height: 24px;
+}
 .day-of-the-week {
   flex: 1 4 100px;
 }

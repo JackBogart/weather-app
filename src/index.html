@@ -6,16 +6,29 @@
     <title>Weather App</title>
   </head>
   <body>
-    <form>
-      <input
-        type="search"
-        name="location"
-        id="location"
-        placeholder="Enter a city"
-        aria-label="Search location"
-      />
-      <button type="submit"></button>
-    </form>
+    <div class="header">
+      <form>
+        <input
+          type="search"
+          name="location"
+          id="location"
+          placeholder="Enter a city"
+          aria-label="Search location"
+          required
+        />
+        <button type="submit"></button>
+      </form>
+      <div class="select-wrapper">
+        <select
+          name="temperature-scale"
+          id="temperature-scale"
+          autocomplete="off"
+        >
+          <option selected value="fahrenheit">°F</option>
+          <option value="celsius">°C</option>
+        </select>
+      </div>
+    </div>
     <div class="content"></div>
     <div class="github-banner">
       <a
@@ -36,6 +49,7 @@
           />
         </svg>
       </a>
+      <span>Jack Bogart</span>
     </div>
   </body>
 </html>
