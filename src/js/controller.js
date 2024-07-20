@@ -22,7 +22,13 @@ export default function createController() {
           `next7days?unitGroup=${unitGroup}&elements=datetime%2CresolvedAddress%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2C` +
           'precipprob%2Cconditions%2Cicon&include=fcst%2Cdays%2Ccurrent&key=8KTRXTELZJ2FLALH7ANX7K72L&contentType=json',
       )
-        .then((response) => response.json())
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Invalid Location');
+          }
+        })
         .then((data) => {
           forecast = createForecast(data);
           view.displayCurrentWeather(
@@ -30,6 +36,14 @@ export default function createController() {
             forecast.getLocation(),
           );
           view.displayDailyWeather(forecast.dailyWeather);
+          locationForm.reset();
+        })
+        .catch((error) => {
+          if (error.message === 'Invalid Location') {
+            view.displayNoLocationFound(locationField.value);
+          } else {
+            console.log(error);
+          }
         });
     });
   }

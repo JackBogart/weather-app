@@ -97,6 +97,14 @@ export default function createView() {
     content.replaceChildren(currentWeatherTitle, currentWeatherContainer);
   }
 
+  function displayNoLocationFound(searchQuery) {
+    const content = document.querySelector('.content');
+    const currentWeatherTitle = document.createElement('h2');
+    currentWeatherTitle.textContent = `Could not find location '${searchQuery}'`;
+    currentWeatherTitle.classList.add('invalid-location');
+    content.replaceChildren(currentWeatherTitle);
+  }
+
   function convertTo12Hour(dateTime24) {
     const date = parse(dateTime24, 'HH:mm:ss', new Date());
 
@@ -108,5 +116,5 @@ export default function createView() {
 
     return format(date, 'iiii');
   }
-  return { displayDailyWeather, displayCurrentWeather };
+  return { displayDailyWeather, displayCurrentWeather, displayNoLocationFound };
 }

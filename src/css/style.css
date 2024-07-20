@@ -62,6 +62,7 @@ input + button {
   align-self: stretch;
   border-radius: 0px 20px 20px 0px;
   background: white url('../img/search.svg') no-repeat center center;
+  cursor: pointer;
 }
 
 select {
@@ -70,6 +71,7 @@ select {
   appearance: none;
   background-color: white;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .select-wrapper {
@@ -92,6 +94,7 @@ select {
   display: inline-block;
   width: 24px;
   height: 24px;
+  pointer-events: none;
 }
 
 .content {
@@ -203,6 +206,11 @@ select {
 
 .daily-weather:has(+ .daily-weather) {
   border-bottom: 1px hsl(0, 0%, 95%) solid;
+}
+
+.invalid-location {
+  align-self: center;
+  color: gray;
 }
 
 /* Weather Icons */
