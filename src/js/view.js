@@ -1,8 +1,9 @@
 import { format, parse } from 'date-fns';
 
 export default function createView() {
+  const content = document.querySelector('.content');
+
   function displayDailyWeather(dailyWeather) {
-    const content = document.querySelector('.content');
     const dailyWeatherTitle = document.createElement('h2');
     dailyWeatherTitle.textContent = 'Weekly Forecast';
     dailyWeatherTitle.classList.add('section-title');
@@ -56,7 +57,6 @@ export default function createView() {
   }
 
   function displayCurrentWeather(currentWeather, location) {
-    const content = document.querySelector('.content');
     const currentWeatherContainer = document.createElement('div');
     const currentWeatherTitle = document.createElement('h2');
     currentWeatherTitle.textContent = 'Today';
@@ -98,7 +98,6 @@ export default function createView() {
   }
 
   function displayNoLocationFound(searchQuery) {
-    const content = document.querySelector('.content');
     const currentWeatherTitle = document.createElement('h2');
     currentWeatherTitle.textContent = `Could not find location '${searchQuery}'`;
     currentWeatherTitle.classList.add('invalid-location');
@@ -116,5 +115,18 @@ export default function createView() {
 
     return format(date, 'iiii');
   }
-  return { displayDailyWeather, displayCurrentWeather, displayNoLocationFound };
+
+  function displayLoading() {
+    const loadingStatus = document.createElement('h2');
+    loadingStatus.textContent = 'Loading...';
+    loadingStatus.classList.add('loading');
+    content.replaceChildren(loadingStatus);
+  }
+
+  return {
+    displayDailyWeather,
+    displayCurrentWeather,
+    displayNoLocationFound,
+    displayLoading,
+  };
 }

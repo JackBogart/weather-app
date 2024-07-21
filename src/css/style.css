@@ -208,7 +208,8 @@ select {
   border-bottom: 1px hsl(0, 0%, 95%) solid;
 }
 
-.invalid-location {
+.invalid-location,
+.loading {
   align-self: center;
   color: gray;
 }

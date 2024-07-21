@@ -16,6 +16,8 @@ export default function createController() {
   }
 
   async function fetchWeather(searchQuery, unitGroup) {
+    view.displayLoading();
+
     try {
       const response = await fetch(
         `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${searchQuery}/` +
