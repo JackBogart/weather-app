@@ -71,6 +71,7 @@ export default function createController() {
   function init() {
     setupSearchHandler();
     setupTemperatureConverter();
+    fetchWeather('Philadelphia', 'us');
   }
 
   return { init };
