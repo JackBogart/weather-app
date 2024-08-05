@@ -1,7 +1,7 @@
 import {
   processVisualCrossingCurrentWeather,
   processVisualCrossingDailyWeather,
-} from './visualCrossingProcessor';
+} from './visual-crossing-processor';
 
 export function processCurrentWeather(data) {
   return processVisualCrossingCurrentWeather(data);
