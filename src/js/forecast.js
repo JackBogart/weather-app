@@ -1,9 +1,9 @@
-import createCurrentWeather from './currentWeather';
-import createDailyWeather from './dailyWeather';
+import createCurrentWeather from './current-weather';
+import createDailyWeather from './daily-weather';
 import {
   processCurrentWeather,
   processDailyWeather,
-} from './processDataWrapper';
+} from './process-data-wrapper';
 
 export default function createForecast(data) {
   const location = data.resolvedAddress;
